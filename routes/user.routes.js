@@ -37,7 +37,7 @@ userRouter.get("/user/:id", userController.getUserById);
  */
 userRouter.post("/user", userController.createUser);
 /**
- * This function update user
+ * This function updates a user
  * @route PUT /user
  * @group Users - Operations about user
  * @param {UserUpdate.model} user.body.required - the new user model
@@ -46,7 +46,7 @@ userRouter.post("/user", userController.createUser);
  */
 userRouter.put("/user", userController.updateUser);
 /**
- * This function updates user 
+ * This function delete a user 
  * put just whole new user body to update
  * @route DELETE /user/{id}
  * @group Users - Operations about user
@@ -56,5 +56,14 @@ userRouter.put("/user", userController.updateUser);
  */
 userRouter.delete("/user/:id", userController.removeUser);
 
+/**
+ * This function deletes all users
+ * put just whole new user body to update
+ * @route DELETE /users
+ * @group Users - Operations about user
+ * @returns {object} 200 - Users were deleted
+ * @returns {Error}  default - Unexpected error
+ */
+userRouter.delete("/users", userController.removeAllUsers);
 
 module.exports = userRouter;

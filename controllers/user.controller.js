@@ -69,3 +69,15 @@ exports.removeUser = (req, res) => {
     }
   );
 };
+
+exports.removeAllUsers = (req, res) => {
+  User.remove(
+    {}, (err, user) => {
+      if (err) {
+        res.json({ message: "removeAllUsers", error: err });
+      } else {
+        res.send(`Users were deleted!`);
+      }
+    }
+  );
+};
