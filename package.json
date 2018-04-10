@@ -1,0 +1,31 @@
+{
+  "name": "userdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lolibai/userdb.git"
+  },
+  "keywords": [
+    "userdb"
+  ],
+  "author": "Lolibai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lolibai/userdb/issues"
+  },
+  "homepage": "https://github.com/Lolibai/userdb#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-swaggerize-ui": "^1.0.1",
+    "mongoose": "^5.0.14"
+  },
+  "devDependencies": {
+    "express-swagger-generator": "^1.1.0"
+  }
+}
