@@ -64,20 +64,18 @@ exports.removeUser = (req, res) => {
       if (err) {
         res.json({ message: "removeUser", error: err });
       } else {
-        res.send(`The user with id ${req.params.id} was deleted!`);
+        res.json({ message: `The user with id ${req.params.id} was deleted!` });
       }
     }
   );
 };
 
 exports.removeAllUsers = (req, res) => {
-  User.remove(
-    {}, (err, user) => {
-      if (err) {
-        res.json({ message: "removeAllUsers", error: err });
-      } else {
-        res.send(`Users were deleted!`);
-      }
+  User.remove({}, (err, user) => {
+    if (err) {
+      res.json({ message: "removeAllUsers", error: err });
+    } else {
+      res.json({ message: `Users were deleted!` });
     }
-  );
+  });
 };
