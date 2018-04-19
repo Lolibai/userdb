@@ -1,6 +1,7 @@
 var express = require("express");
 var userRouter = express.Router();
 var userController = require("../controllers/user.controller");
+userRouter.get("/", userController.default);
 /**
  * @typedef User
  * @property {string} name.required

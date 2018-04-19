@@ -1,5 +1,9 @@
 var User = require("../models/user.model");
 
+exports.default = (req, res) => {
+  res.send("HELLO WORLD");
+};
+
 exports.getAllUsers = (req, res) => {
   User.find({}).exec((err, users) => {
     if (err) {
