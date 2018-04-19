@@ -12,7 +12,7 @@ userRouter.get("/", userController.default);
  * @property {string} name.required
  */
 /**
- * This function gets all users
+ * This function gets all users users
  * @route GET /users
  * @group Users - Operations about user
  * @returns {object} 200 - An array of user info
