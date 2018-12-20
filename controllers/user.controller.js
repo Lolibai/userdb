@@ -1,13 +1,13 @@
-var User = require("../models/user.model");
+var User = require('../models/user.model');
 
 exports.default = (req, res) => {
-  res.send("HELLO WORLD");
+  res.send('HELLO WORLD');
 };
 
 exports.getAllUsers = (req, res) => {
   User.find({}).exec((err, users) => {
     if (err) {
-      res.json({ message: "getAllUsers", error: err });
+      res.json({ message: 'getAllUsers', error: err });
     } else {
       res.json(users);
     }
@@ -19,7 +19,7 @@ exports.getUserById = (req, res) => {
     _id: req.params.id
   }).exec((err, user) => {
     if (err) {
-      res.json({ message: "getUserById", error: err });
+      res.json({ message: 'getUserById', error: err });
     } else {
       res.json(user);
     }
@@ -27,15 +27,20 @@ exports.getUserById = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-  var newUser = new User(req.body);
+  try {
+    var newUser = new User(req.body);
 
-  newUser.save((err, user) => {
-    if (err) {
-      res.json({ message: "createUser", error: err });
-    } else {
-      res.json(user);
-    }
-  });
+    newUser.save((err, user) => {
+      if (err) {
+        res.status(409);
+        res.json({ message: 'createUser', error: err });
+      } else {
+        res.json(user);
+      }
+    });
+  } catch (err) {
+    console.log('err: ', err);
+  }
 };
 
 exports.updateUser = (req, res) => {
@@ -51,7 +56,7 @@ exports.updateUser = (req, res) => {
     },
     (err, newUser) => {
       if (err) {
-        res.json({ message: "updateUser", error: err });
+        res.json({ message: 'updateUser', error: err });
       } else {
         res.json(newUser);
       }
@@ -60,15 +65,15 @@ exports.updateUser = (req, res) => {
 };
 
 exports.removeUser = (req, res) => {
-  User.findOneAndRemove(
+  User.findOneAndDelete(
     {
       _id: req.params.id
     },
     (err, user) => {
       if (err) {
-        res.json({ message: "removeUser", error: err });
+        res.json({ message: 'removeUser', error: err });
       } else {
-        res.json({ message: `The user with id ${req.params.id} was deleted!` });
+        res.json({ message: `The user with id ${req.params.id} was deleted!`, id: req.params.id});
       }
     }
   );
@@ -77,7 +82,7 @@ exports.removeUser = (req, res) => {
 exports.removeAllUsers = (req, res) => {
   User.remove({}, (err, user) => {
     if (err) {
-      res.json({ message: "removeAllUsers", error: err });
+      res.json({ message: 'removeAllUsers', error: err });
     } else {
       res.json({ message: `Users were deleted!` });
     }
