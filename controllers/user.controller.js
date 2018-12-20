@@ -43,10 +43,10 @@ exports.createUser = (req, res) => {
   }
 };
 
-exports.updateUser = (req, res) => {
-  User.findOneAndUpdate(
+exports.updateUser = async (req, res) => {
+   await User.findOneAndUpdate(
     {
-      _id: req.body.id
+      _id: req.body._id
     },
     {
       $set: req.body
