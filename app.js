@@ -39,7 +39,7 @@ let options = {
       title: 'Swagger',
       version: '1.0.0'
     },
-    host: 'localhost:8080',
+    host: 'localhost:8081',
     basePath: '/api',
     produces: ['application/json', 'application/xml'],
     schemes: ['http']
