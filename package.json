@@ -23,7 +23,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "express-swaggerize-ui": "^1.0.1",
-    "mongoose": "^5.0.14"
+    "mongoose": "5.4.0"
   },
   "devDependencies": {
     "express-swagger-generator": "^1.1.0"

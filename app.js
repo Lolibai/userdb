@@ -10,7 +10,7 @@ var swaggerUi = require('express-swaggerize-ui');
 
 mongoose.connect(
   database,
-  { useNewUrlParser: true, useCreateIndex: true }
+  { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }
 );
 
 app.use(bodyParser.json());
