@@ -1,7 +1,9 @@
 var express = require("express");
 var userRouter = express.Router();
 var userController = require("../controllers/user.controller");
-userRouter.get("/", userController.default);
+const { protectRoute } = require("../services/auth.service");
+
+userRouter.get("/", protectRoute, userController.default);
 /**
  * @typedef User
  * @property {string} name.required
@@ -18,7 +20,7 @@ userRouter.get("/", userController.default);
  * @returns {object} 200 - An array of user info
  * @returns {Error}  default - Unexpected error
  */
-userRouter.get("/users", userController.getAllUsers);
+userRouter.get("/users", protectRoute, userController.getAllUsers);
 /**
  * This function gets user
  * @route GET /user/{id}
@@ -27,7 +29,7 @@ userRouter.get("/users", userController.getAllUsers);
  * @returns {object} 200 - User info
  * @returns {Error}  default - Unexpected error
  */
-userRouter.get("/user/:id", userController.getUserById);
+userRouter.get("/user/:id", protectRoute, userController.getUserById);
 /**
  * This function create user
  * @route POST /user
@@ -45,7 +47,7 @@ userRouter.post("/user", userController.createUser);
  * @returns {object} 200 - User updated
  * @returns {Error}  default - Unexpected error
  */
-userRouter.put("/user", userController.updateUser);
+userRouter.put("/user", protectRoute, userController.updateUser);
 /**
  * This function delete a user 
  * put just whole new user body to update
@@ -55,7 +57,7 @@ userRouter.put("/user", userController.updateUser);
  * @returns {object} 200 - User deleted
  * @returns {Error}  default - Unexpected error
  */
-userRouter.delete("/user/:id", userController.removeUser);
+userRouter.delete("/user/:id", protectRoute, userController.removeUser);
 
 /**
  * This function deletes all users
@@ -65,6 +67,6 @@ userRouter.delete("/user/:id", userController.removeUser);
  * @returns {object} 200 - Users were deleted
  * @returns {Error}  default - Unexpected error
  */
-userRouter.delete("/users", userController.removeAllUsers);
+userRouter.delete("/users", protectRoute, userController.removeAllUsers);
 
 module.exports = userRouter;

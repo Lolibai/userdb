@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var port = 8081;
 var { database } = require('./config');
 var userRouter = require('./routes/user.routes');
+var authRouter = require('./routes/auth.routes');
+
 var expressSwagger = require('express-swagger-generator')(app);
 var swaggerUi = require('express-swaggerize-ui');
 
@@ -31,6 +33,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/api', userRouter);
+app.use('/api', authRouter);
+
 
 let options = {
   swaggerDefinition: {

@@ -1,4 +1,5 @@
 var User = require('../models/user.model');
+const bcrypt = require('bcrypt');
 
 exports.default = (req, res) => {
   res.send('HELLO WORLD');
@@ -26,16 +27,19 @@ exports.getUserById = (req, res) => {
   });
 };
 
-exports.createUser = (req, res) => {
+exports.createUser = async (req, res) => {
   try {
-    var newUser = new User(req.body);
+    const password = await bcrypt.hash(req.body.password, 10);
+    var newUser = new User({...req.body, password});
 
     newUser.save((err, user) => {
       if (err) {
         res.status(409);
         res.json({ message: 'createUser', error: err });
       } else {
-        res.json(user);
+        let newUser = user;
+        delete newUser.password;
+        res.json(newUser);
       }
     });
   } catch (err) {
