@@ -6,7 +6,7 @@ var port = 8081;
 var { database } = require('./config');
 var userRouter = require('./routes/user.routes');
 var authRouter = require('./routes/auth.routes');
-
+var cors = require('cors');
 var expressSwagger = require('express-swagger-generator')(app);
 var swaggerUi = require('express-swaggerize-ui');
 
@@ -15,6 +15,7 @@ mongoose.connect(
   { useNewUrlParser: true, useCreateIndex: true }
 );
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
