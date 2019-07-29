@@ -13,7 +13,6 @@ var swaggerUi = require('express-swaggerize-ui')
 mongoose.connect(database, { useNewUrlParser: true, useCreateIndex: true })
 
 app.use(cors())
-
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({

@@ -2,7 +2,7 @@ var jwt = require('jsonwebtoken')
 var User = require('../models/user.model')
 const bcrypt = require('bcrypt')
 
-const TOKEN_EXPIRATION_TIME = '2d'
+const TOKEN_EXPIRATION_TIME = 60 * 60;
 const SECRET = 'extraterrestrial3power2of1hyper-vomit!'
 const ERROR_CODES = {
   INVALID_PASSWORD_ERROR: 1,
