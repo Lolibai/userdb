@@ -12,7 +12,6 @@ var authController = require("../controllers/auth.controller");
  * @route POST /login
  * @group Auth - Operations about login
  * @param {AuthLogin.model} login.body.required - Login form
- * @property {string} password.required
  * @returns {object} 200 - Token and user
  * @returns {Error}  default - Unexpected error
  */
