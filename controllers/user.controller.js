@@ -37,7 +37,7 @@ exports.createUser = async (req, res) => {
         res.status(409);
         res.json({ message: 'createUser', error: err });
       } else {
-        let newUser = user;
+        let newUser = user.toJSON();
         delete newUser.password;
         res.json(newUser);
       }
