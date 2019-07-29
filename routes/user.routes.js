@@ -7,6 +7,7 @@ userRouter.get("/", protectRoute, userController.default);
 /**
  * @typedef User
  * @property {string} name.required
+ * @property {string} password.required
  */
 /**
  * @typedef UserUpdate
