@@ -15,7 +15,6 @@ exports.protectRoute = async (req, res, next) => {
       let decodedJWT = ''
       try {
         decodedJWT = await jwt.verify(token, SECRET)
-        console.log('decodedJWT: ', decodedJWT);
         if (decodedJWT === null) {
           return Promise.reject({
             errorCode: ERROR_CODES.EXPIRED_TOKEN_ERROR,
