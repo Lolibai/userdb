@@ -1,98 +1,103 @@
-var User = require('../models/user.model');
-const bcrypt = require('bcrypt');
+var User = require('../models/user.model')
+const bcrypt = require('bcrypt')
 
 exports.default = (req, res) => {
-  res.send('HELLO WORLD');
-};
+  res.send('HELLO WORLD')
+}
 
 exports.getAllUsers = async (req, res) => {
   try {
-  await User.find({}).exec((err, users) => {
-    if (err) {
-      res.json({ message: 'getAllUsers', error: err });
-    } else {
-      res.json(users);
-    }
-  });
-} catch(err) {
-  console.error(err)
+    await User.find({})
+      .select({ name: 1, _id: 1 })
+      .exec((err, users) => {
+        if (err) {
+          res.json({ message: 'getAllUsers', error: err })
+        } else {
+          res.json(users)
+        }
+      })
+  } catch (err) {
+    console.error(err)
+  }
 }
-};
 
 exports.getUserById = (req, res) => {
   User.findOne({
-    _id: req.params.id
+    _id: req.params.id,
   }).exec((err, user) => {
     if (err) {
-      res.json({ message: 'getUserById', error: err });
+      res.json({ message: 'getUserById', error: err })
     } else {
-      res.json(user);
+      res.json(user)
     }
-  });
-};
+  })
+}
 
 exports.createUser = async (req, res) => {
   try {
-    const password = await bcrypt.hash(req.body.password, 10);
-    var newUser = new User({...req.body, password});
+    const password = await bcrypt.hash(req.body.password, 10)
+    var newUser = new User({ ...req.body, password })
 
     newUser.save((err, user) => {
       if (err) {
-        res.status(409);
-        res.json({ message: 'createUser', error: err });
+        res.status(409)
+        res.json({ message: 'createUser', error: err })
       } else {
-        let newUser = user.toJSON();
-        delete newUser.password;
-        res.json(newUser);
+        let newUser = user.toJSON()
+        delete newUser.password
+        res.json(newUser)
       }
-    });
+    })
   } catch (err) {
-    console.log('err: ', err);
+    console.log('err: ', err)
   }
-};
+}
 
 exports.updateUser = (req, res) => {
   User.findOneAndUpdate(
     {
-      _id: req.body.id
+      _id: req.body.id,
     },
     {
-      $set: req.body
+      $set: req.body,
     },
     {
-      new: true
+      new: true,
     },
     (err, newUser) => {
       if (err) {
-        res.json({ message: 'updateUser', error: err });
+        res.json({ message: 'updateUser', error: err })
       } else {
-        res.json(newUser);
+        res.json(newUser)
       }
-    }
-  );
-};
+    },
+  )
+}
 
 exports.removeUser = (req, res) => {
   User.findOneAndDelete(
     {
-      _id: req.params.id
+      _id: req.params.id,
     },
     (err, user) => {
       if (err) {
-        res.json({ message: 'removeUser', error: err });
+        res.json({ message: 'removeUser', error: err })
       } else {
-        res.json({ message: `The user with id ${req.params.id} was deleted!`, id: req.params.id});
+        res.json({
+          message: `The user with id ${req.params.id} was deleted!`,
+          id: req.params.id,
+        })
       }
-    }
-  );
-};
+    },
+  )
+}
 
 exports.removeAllUsers = (req, res) => {
   User.remove({}, (err, user) => {
     if (err) {
-      res.json({ message: 'removeAllUsers', error: err });
+      res.json({ message: 'removeAllUsers', error: err })
     } else {
-      res.json({ message: `Users were deleted!` });
+      res.json({ message: `Users were deleted!` })
     }
-  });
-};
+  })
+}
