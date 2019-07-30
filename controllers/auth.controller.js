@@ -2,7 +2,7 @@ var jwt = require('jsonwebtoken')
 var User = require('../models/user.model')
 const bcrypt = require('bcrypt')
 
-const TOKEN_EXPIRATION_TIME = 60 * 60;
+const TOKEN_EXPIRATION_TIME = '10h'
 const SECRET = 'extraterrestrial3power2of1hyper-vomit!'
 const ERROR_CODES = {
   INVALID_PASSWORD_ERROR: 1,
@@ -10,7 +10,7 @@ const ERROR_CODES = {
   EMPTY_FIELD_ERROR: 3,
   USER_DOESNT_EXIST: 4,
   INTERNAL_SERVER_ERROR: 5,
-  NOT_ROOM_ADMIN: 6
+  NOT_ROOM_ADMIN: 6,
 }
 const isValidPassword = (user, password) => {
   return new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
       res.status(400)
       res.json({
         errorCode: ERROR_CODES.EMPTY_FIELD_ERROR,
-        message: "Provide user's name"
+        message: "Provide user's name",
       })
     }
     if (
@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
       res.status(400)
       res.json({
         errorCode: ERROR_CODES.EMPTY_FIELD_ERROR,
-        message: "Provide user's password"
+        message: "Provide user's password",
       })
     }
     return User.findOne({ name: req.body.name })
@@ -52,18 +52,18 @@ exports.login = async (req, res) => {
           res.status(400)
           res.json({
             errorCode: ERROR_CODES.USER_DOESNT_EXIST,
-            message: `User with name "${req.body.name}" doesn't exist`
+            message: `User with name "${req.body.name}" doesn't exist`,
           })
         }
         if ((await isValidPassword(user, req.body.password)) === false) {
           res.status(400)
           res.json({
             errorCode: ERROR_CODES.INVALID_PASSWORD_ERROR,
-            message: 'Invalid password'
+            message: 'Invalid password',
           })
         }
         const token = jwt.sign(user.toJSON(), SECRET, {
-          expiresIn: TOKEN_EXPIRATION_TIME
+          expiresIn: TOKEN_EXPIRATION_TIME,
         })
         let newUser = { ...user.toJSON() }
         delete newUser.password
@@ -74,7 +74,7 @@ exports.login = async (req, res) => {
         res.status(500)
         res.json({
           errorCode: ERROR_CODES.INTERNAL_SERVER_ERROR,
-          message: err.message
+          message: err.message,
         })
       })
   } catch (err) {
