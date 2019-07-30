@@ -5,14 +5,18 @@ exports.default = (req, res) => {
   res.send('HELLO WORLD');
 };
 
-exports.getAllUsers = (req, res) => {
-  User.find({}).exec((err, users) => {
+exports.getAllUsers = async (req, res) => {
+  try {
+  await User.find({}).exec((err, users) => {
     if (err) {
       res.json({ message: 'getAllUsers', error: err });
     } else {
       res.json(users);
     }
   });
+} catch(err) {
+  console.error(err)
+}
 };
 
 exports.getUserById = (req, res) => {
