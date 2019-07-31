@@ -8,7 +8,7 @@ exports.default = (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     await User.find({})
-      .select({ name: 1, _id: 1 })
+      .select({ name: 1, _id: 1, status: 1 })
       .exec((err, users) => {
         if (err) {
           res.json({ message: 'getAllUsers', error: err })
