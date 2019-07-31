@@ -55,6 +55,18 @@ app.use('/api-docs.json', function(req, res) {
 })
 app.use('/api-docs', swaggerUi())
 
-app.listen(port, function() {
+var { onconnect } = require('./services/sockets/websocket.service')
+
+var server = require('http').createServer(app)
+
+var io = require('socket.io')(server, {
+  origins: 'localhost:4200',
+})
+
+global.io = io
+
+onconnect(io)
+
+server.listen(port, function() {
   console.log(`Server is listenings ${port} port`)
 })
