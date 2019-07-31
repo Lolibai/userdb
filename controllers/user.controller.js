@@ -66,7 +66,7 @@ exports.updateUser = (req, res) => {
     },
     (err, newUser) => {
       if (err) {
-        res.json({ message: 'updateUser', error: err })
+        res.status(400).json({ message: 'updateUser', error: err })
       } else {
         res.json(newUser)
       }
