@@ -45,6 +45,7 @@ exports.createUser = async (req, res) => {
       } else {
         let newUser = user.toJSON()
         delete newUser.password
+        global.io.emit('new user', newUser)
         res.json(newUser)
       }
     })
