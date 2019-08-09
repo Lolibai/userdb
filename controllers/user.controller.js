@@ -1,90 +1,97 @@
-var User = require('../models/user.model');
+var User = require('../models/user.model')
 
 exports.default = (req, res) => {
-  res.send('HELLO WORLD');
-};
+  res.send('HELLO WORLD')
+}
 
 exports.getAllUsers = (req, res) => {
-  User.find({}).exec((err, users) => {
-    if (err) {
-      res.json({ message: 'getAllUsers', error: err });
-    } else {
-      res.json(users);
-    }
-  });
-};
+  User.find({})
+    .sort([[req.query.orderBy, req.query.order]])
+    .skip(+req.query.page * +req.query.perPage)
+    .limit(+req.query.perPage)
+    .exec((err, users) => {
+      if (err) {
+        res.json({ message: 'getAllUsers', error: err })
+      } else {
+        res.json(users)
+      }
+    })
+}
 
 exports.getUserById = (req, res) => {
   User.findOne({
-    _id: req.params.id
+    _id: req.params.id,
   }).exec((err, user) => {
     if (err) {
-      res.json({ message: 'getUserById', error: err });
+      res.json({ message: 'getUserById', error: err })
     } else {
-      res.json(user);
+      res.json(user)
     }
-  });
-};
+  })
+}
 
 exports.createUser = (req, res) => {
   try {
-    var newUser = new User(req.body);
+    var newUser = new User(req.body)
 
     newUser.save((err, user) => {
       if (err) {
-        res.status(409);
-        res.json({ message: 'createUser', error: err });
+        res.status(409)
+        res.json({ message: 'createUser', error: err })
       } else {
-        res.json(user);
+        res.json(user)
       }
-    });
+    })
   } catch (err) {
-    console.log('err: ', err);
+    console.log('err: ', err)
   }
-};
+}
 
 exports.updateUser = (req, res) => {
   User.findOneAndUpdate(
     {
-      _id: req.body.id
+      _id: req.body.id,
     },
     {
-      $set: req.body
+      $set: req.body,
     },
     {
-      new: true
+      new: true,
     },
     (err, newUser) => {
       if (err) {
-        res.json({ message: 'updateUser', error: err });
+        res.json({ message: 'updateUser', error: err })
       } else {
-        res.json(newUser);
+        res.json(newUser)
       }
-    }
-  );
-};
+    },
+  )
+}
 
 exports.removeUser = (req, res) => {
   User.findOneAndDelete(
     {
-      _id: req.params.id
+      _id: req.params.id,
     },
     (err, user) => {
       if (err) {
-        res.json({ message: 'removeUser', error: err });
+        res.json({ message: 'removeUser', error: err })
       } else {
-        res.json({ message: `The user with id ${req.params.id} was deleted!`, id: req.params.id});
+        res.json({
+          message: `The user with id ${req.params.id} was deleted!`,
+          id: req.params.id,
+        })
       }
-    }
-  );
-};
+    },
+  )
+}
 
 exports.removeAllUsers = (req, res) => {
   User.remove({}, (err, user) => {
     if (err) {
-      res.json({ message: 'removeAllUsers', error: err });
+      res.json({ message: 'removeAllUsers', error: err })
     } else {
-      res.json({ message: `Users were deleted!` });
+      res.json({ message: `Users were deleted!` })
     }
-  });
-};
+  })
+}

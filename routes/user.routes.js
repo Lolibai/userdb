@@ -1,7 +1,7 @@
-var express = require("express");
-var userRouter = express.Router();
-var userController = require("../controllers/user.controller");
-userRouter.get("/", userController.default);
+var express = require('express')
+var userRouter = express.Router()
+var userController = require('../controllers/user.controller')
+userRouter.get('/', userController.default)
 /**
  * @typedef User
  * @property {string} name.required
@@ -15,10 +15,14 @@ userRouter.get("/", userController.default);
  * This function gets all users users
  * @route GET /users
  * @group Users - Operations about user
+ * @param {string} orderBy.query.required - OrderBy
+ * @param {string} order.query.required - Order
+ * @param {number} page.query.required - Page
+ * @param {number} perPage.query.required - Per Page Items
  * @returns {object} 200 - An array of user info
  * @returns {Error}  default - Unexpected error
  */
-userRouter.get("/users", userController.getAllUsers);
+userRouter.get('/users', userController.getAllUsers)
 /**
  * This function gets user
  * @route GET /user/{id}
@@ -27,7 +31,7 @@ userRouter.get("/users", userController.getAllUsers);
  * @returns {object} 200 - User info
  * @returns {Error}  default - Unexpected error
  */
-userRouter.get("/user/:id", userController.getUserById);
+userRouter.get('/user/:id', userController.getUserById)
 /**
  * This function create user
  * @route POST /user
@@ -36,7 +40,7 @@ userRouter.get("/user/:id", userController.getUserById);
  * @returns {object} 200 - User created
  * @returns {Error}  default - Unexpected error
  */
-userRouter.post("/user", userController.createUser);
+userRouter.post('/user', userController.createUser)
 /**
  * This function updates a user
  * @route PUT /user
@@ -45,9 +49,9 @@ userRouter.post("/user", userController.createUser);
  * @returns {object} 200 - User updated
  * @returns {Error}  default - Unexpected error
  */
-userRouter.put("/user", userController.updateUser);
+userRouter.put('/user', userController.updateUser)
 /**
- * This function delete a user 
+ * This function delete a user
  * put just whole new user body to update
  * @route DELETE /user/{id}
  * @group Users - Operations about user
@@ -55,7 +59,7 @@ userRouter.put("/user", userController.updateUser);
  * @returns {object} 200 - User deleted
  * @returns {Error}  default - Unexpected error
  */
-userRouter.delete("/user/:id", userController.removeUser);
+userRouter.delete('/user/:id', userController.removeUser)
 
 /**
  * This function deletes all users
@@ -65,6 +69,6 @@ userRouter.delete("/user/:id", userController.removeUser);
  * @returns {object} 200 - Users were deleted
  * @returns {Error}  default - Unexpected error
  */
-userRouter.delete("/users", userController.removeAllUsers);
+userRouter.delete('/users', userController.removeAllUsers)
 
-module.exports = userRouter;
+module.exports = userRouter
