@@ -8,6 +8,9 @@ exports.default = (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     await User.find({})
+      .sort([[req.query.orderBy, req.query.order]])
+      .skip(+req.query.page * +req.query.perPage)
+      .limit(+req.query.perPage)
       .select({ name: 1, _id: 1, status: 1 })
       .exec((err, users) => {
         if (err) {
