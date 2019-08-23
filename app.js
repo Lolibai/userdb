@@ -60,7 +60,7 @@ var { onconnect } = require('./services/sockets/websocket.service')
 var server = require('http').createServer(app)
 
 var io = require('socket.io')(server, {
-  origins: 'localhost:4200',
+  origins: 'localhost:3000',
 })
 
 global.io = io
