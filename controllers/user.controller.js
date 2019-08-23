@@ -7,6 +7,7 @@ exports.default = (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
+    const count = await User.countDocuments()
     await User.find({})
       .sort([[req.query.orderBy, req.query.order]])
       .skip(+req.query.page * +req.query.perPage)
@@ -16,7 +17,7 @@ exports.getAllUsers = async (req, res) => {
         if (err) {
           res.json({ message: 'getAllUsers', error: err })
         } else {
-          res.json(users)
+          res.json({ total: count, users })
         }
       })
   } catch (err) {
